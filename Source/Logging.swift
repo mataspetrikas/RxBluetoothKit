@@ -78,7 +78,7 @@ public class RxBluetoothKitLog {
 
     fileprivate static func log(with logLevel: LogLevel, message: @autoclosure () -> String) {
         if currentLogLevel <= logLevel {
-            print(tag(with: logLevel), message())
+            NSLog(tag(with: logLevel) + message())
         }
     }
 
@@ -171,6 +171,18 @@ extension CBService : Loggable {
 extension CBDescriptor : Loggable {
     var logDescription: String {
         return "Service(uuid: \(uuid), id: \((UInt(bitPattern: ObjectIdentifier(self)))))"
+    }
+}
+
+extension CBUUID : Loggable {
+    var logDescription: String {
+        return self.uuidString
+    }
+}
+
+extension UUID : Loggable {
+    var logDescription: String {
+        return self.uuidString
     }
 }
 

@@ -134,6 +134,8 @@ class RxCBPeripheral: RxPeripheralType {
      - parameter serviceUUIDs: List of UUIDS which must be implemented by a peripheral
      */
     func discoverServices(_ serviceUUIDs: [CBUUID]?) {
+        // swiftlint:disable:next line_length TODO: multiline string in Swift 4
+        RxBluetoothKitLog.d("\(peripheral.logDescription) discoverServices(serviceUUIDs: \(String(describing: serviceUUIDs?.logDescription)))")
         peripheral.discoverServices(serviceUUIDs)
     }
 
@@ -146,7 +148,10 @@ class RxCBPeripheral: RxPeripheralType {
      - parameter forService: Serivce which includes characteristics
      */
     func discoverCharacteristics(_ characteristicUUIDs: [CBUUID]?, for service: RxServiceType) {
-        peripheral.discoverCharacteristics(characteristicUUIDs, for: (service as! RxCBService).service)
+        let cbService = (service as! RxCBService).service
+        // swiftlint:disable:next line_length TODO: multiline string in Swift 4
+        RxBluetoothKitLog.d("\(peripheral.logDescription) discoverCharacteristics(characteristicUUIDs: \(String(describing: characteristicUUIDs?.logDescription)), for: \(cbService.logDescription))")
+        peripheral.discoverCharacteristics(characteristicUUIDs, for: cbService)
     }
 
     /**
@@ -158,7 +163,10 @@ class RxCBPeripheral: RxPeripheralType {
      - parameter forService: Service which contains included services.
      */
     func discoverIncludedServices(_ includedServiceUUIDs: [CBUUID]?, for service: RxServiceType) {
-        peripheral.discoverIncludedServices(includedServiceUUIDs, for: (service as! RxCBService).service)
+        let cbService = (service as! RxCBService).service
+        // swiftlint:disable:next line_length TODO: multiline string in Swift 4
+        RxBluetoothKitLog.d("\(peripheral.logDescription) discoverIncludedServices(includedServiceUUIDs: \(String(describing: includedServiceUUIDs?.logDescription)), for: \(cbService.logDescription))")
+        peripheral.discoverIncludedServices(includedServiceUUIDs, for: cbService)
     }
 
     /**
@@ -167,7 +175,9 @@ class RxCBPeripheral: RxPeripheralType {
      - parameter characteristic: Characteristic from which we are reading
      */
     func readValue(for characteristic: RxCharacteristicType) {
-        peripheral.readValue(for: (characteristic as! RxCBCharacteristic).characteristic)
+        let cbCharacteristic = (characteristic as! RxCBCharacteristic).characteristic
+        RxBluetoothKitLog.d("\(peripheral.logDescription) readValue(for: \(cbCharacteristic))")
+        peripheral.readValue(for: cbCharacteristic)
     }
 
     /**
@@ -180,8 +190,10 @@ class RxCBPeripheral: RxPeripheralType {
     func writeValue(_ data: Data,
                     for characteristic: RxCharacteristicType,
                     type: CBCharacteristicWriteType) {
-            peripheral.writeValue(data, for: (characteristic as! RxCBCharacteristic).characteristic,
-                type: type)
+        let cbCharacteristic = (characteristic as! RxCBCharacteristic).characteristic
+        // swiftlint:disable:next line_length TODO: multiline string in Swift 4
+        RxBluetoothKitLog.d("\(peripheral.logDescription) writeValue(\(data.logDescription), for: \(cbCharacteristic.logDescription), type: \(type))")
+        peripheral.writeValue(data, for: cbCharacteristic, type: type)
     }
 
     /**
@@ -190,7 +202,10 @@ class RxCBPeripheral: RxPeripheralType {
      - parameter forCharacteristic: Characteristic for which notifications will be enabled or disabled
      */
     func setNotifyValue(_ enabled: Bool, for characteristic: RxCharacteristicType) {
-        peripheral.setNotifyValue(enabled, for: (characteristic as! RxCBCharacteristic).characteristic)
+        let cbCharacteristic = (characteristic as! RxCBCharacteristic).characteristic
+        // swiftlint:disable:next line_length TODO: multiline string in Swift 4
+        RxBluetoothKitLog.d("\(peripheral.logDescription) setNotifyValue(\(enabled), for: \(cbCharacteristic.logDescription))")
+        peripheral.setNotifyValue(enabled, for: cbCharacteristic)
     }
 
     /**
@@ -200,7 +215,9 @@ class RxCBPeripheral: RxPeripheralType {
      - parameter characteristic: Characteristic for which descriptors will be discovered
      */
     func discoverDescriptors(for characteristic: RxCharacteristicType) {
-        peripheral.discoverDescriptors(for: (characteristic as! RxCBCharacteristic).characteristic)
+        let cbCharacteristic = (characteristic as! RxCBCharacteristic).characteristic
+        RxBluetoothKitLog.d("\(peripheral.logDescription) discoverDescriptors(for: \(cbCharacteristic.logDescription))")
+        peripheral.discoverDescriptors(for: cbCharacteristic)
     }
 
     /**
@@ -210,7 +227,9 @@ class RxCBPeripheral: RxPeripheralType {
      - parameter descriptor: Descriptor which value will be read.
      */
     func readValue(for descriptor: RxDescriptorType) {
-        peripheral.readValue(for: (descriptor as! RxCBDescriptor).descriptor)
+        let cbDescriptor = (descriptor as! RxCBDescriptor).descriptor
+        RxBluetoothKitLog.d("\(peripheral.logDescription) readValue(for: \(cbDescriptor.logDescription))")
+        peripheral.readValue(for: cbDescriptor)
     }
 
     /*!
@@ -222,6 +241,7 @@ class RxCBPeripheral: RxPeripheralType {
      */
     @available(OSX 10.12, iOS 9.0, *)
     func maximumWriteValueLength(for type: CBCharacteristicWriteType) -> Int {
+        RxBluetoothKitLog.d("\(peripheral.logDescription) maximumWriteValueLength(for: \(type))")
         return peripheral.maximumWriteValueLength(for: type)
     }
 
@@ -233,11 +253,15 @@ class RxCBPeripheral: RxPeripheralType {
      - parameter forDescriptor: Descriptor which value will be written.
      */
     func writeValue(_ data: Data, for descriptor: RxDescriptorType) {
-        peripheral.writeValue(data, for: (descriptor as! RxCBDescriptor).descriptor)
+        let cbDescriptor = (descriptor as! RxCBDescriptor).descriptor
+        // swiftlint:disable:next line_length TODO: multiline string in Swift 4
+        RxBluetoothKitLog.d("\(peripheral.logDescription) writeValue(\(data.logDescription), for: \(cbDescriptor.logDescription))")
+        peripheral.writeValue(data, for: cbDescriptor)
     }
 
     /// Read RSSI from peripheral
     func readRSSI() {
+        RxBluetoothKitLog.d("\(peripheral.logDescription) readRSSI()")
         peripheral.readRSSI()
     }
 

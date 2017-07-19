@@ -128,6 +128,7 @@ class RxCBCentralManager: RxCentralManagerType {
 
     /// Current central manager state
     var state: BluetoothState {
+        RxBluetoothKitLog.d("\(centralManager.logDescription) state: \(centralManager.state)")
         return BluetoothState(rawValue: centralManager.state.rawValue) ?? .unsupported
     }
 
@@ -140,6 +141,8 @@ class RxCBCentralManager: RxCentralManagerType {
      - parameter options: Central Manager specific options for scanning
      */
     func scanForPeripherals(withServices serviceUUIDs: [CBUUID]?, options: [String: Any]?) {
+        // swiftlint:disable:next line_length TODO: multiline string in Swift 4
+        RxBluetoothKitLog.d("\(centralManager.logDescription) scanForPeripherals(withServices: \(String(describing: serviceUUIDs?.logDescription)), options: \(String(describing: options)))")
         return centralManager.scanForPeripherals(withServices: serviceUUIDs, options: options)
     }
 
@@ -151,7 +154,10 @@ class RxCBCentralManager: RxCentralManagerType {
      - parameter options: Central Manager specific connection options.
      */
     func connect(_ peripheral: RxPeripheralType, options: [String: Any]?) {
-        return centralManager.connect((peripheral as! RxCBPeripheral).peripheral, options: options)
+        let cbPeripheral = (peripheral as! RxCBPeripheral).peripheral
+        // swiftlint:disable:next line_length TODO: multiline string in Swift 4
+        RxBluetoothKitLog.d("\(centralManager.logDescription) connect(\(cbPeripheral.logDescription), options: \(String(describing: options)))")
+        return centralManager.connect(cbPeripheral, options: options)
     }
 
     /**
@@ -161,11 +167,15 @@ class RxCBCentralManager: RxCentralManagerType {
      - parameter peripheral: Peripheral to be disconnected.
      */
     func cancelPeripheralConnection(_ peripheral: RxPeripheralType) {
-        return centralManager.cancelPeripheralConnection((peripheral as! RxCBPeripheral).peripheral)
+        let cbPeripheral = (peripheral as! RxCBPeripheral).peripheral
+        // swiftlint:disable:next line_length TODO: multiline string in Swift 4
+        RxBluetoothKitLog.d("\(centralManager.logDescription) cancelPeripheralConnection(\(cbPeripheral.logDescription))")
+        return centralManager.cancelPeripheralConnection(cbPeripheral)
     }
 
     /// Abort peripheral scanning
     func stopScan() {
+        RxBluetoothKitLog.d("\(centralManager.logDescription) stopScan()")
         return centralManager.stopScan()
     }
 
@@ -177,6 +187,8 @@ class RxCBCentralManager: RxCentralManagerType {
      - returns: Observable wich emits connected peripherals.
      */
     func retrieveConnectedPeripherals(withServices serviceUUIDs: [CBUUID]) -> Observable<[RxPeripheralType]> {
+        // swiftlint:disable:next line_length TODO: multiline string in Swift 4
+        RxBluetoothKitLog.d("\(centralManager.logDescription) retrieveConnectedPeripherals(withServices: \(serviceUUIDs.logDescription))")
         return .just(centralManager.retrieveConnectedPeripherals(withServices: serviceUUIDs).map(RxCBPeripheral.init))
     }
 
@@ -187,6 +199,8 @@ class RxCBCentralManager: RxCentralManagerType {
      - returns: Observable which emits peripherals with specified identifiers.
      */
     func retrievePeripherals(withIdentifiers identifiers: [UUID]) -> Observable<[RxPeripheralType]> {
+        // swiftlint:disable:next line_length TODO: multiline string in Swift 4
+        RxBluetoothKitLog.d("\(centralManager.logDescription) retrievePeripherals(withIdentifiers: \(identifiers.logDescription))")
         return .just(centralManager.retrievePeripherals(withIdentifiers: identifiers).map(RxCBPeripheral.init))
     }
 }
