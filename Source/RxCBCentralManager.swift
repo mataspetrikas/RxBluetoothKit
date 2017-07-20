@@ -49,6 +49,7 @@ class RxCBCentralManager: RxCentralManagerType {
      */
     init(queue: DispatchQueue, options: [String: AnyObject]? = nil) {
         centralManager = CBCentralManager(delegate: internalDelegate, queue: queue, options: options)
+        RxBluetoothKitLog.d("\(centralManager.logDescription) init(state: \(String(describing: options))")
     }
 
     @objc private class InternalDelegate: NSObject, CBCentralManagerDelegate {
